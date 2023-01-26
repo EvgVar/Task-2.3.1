@@ -21,24 +21,24 @@ public class UsersController {
     }
 
     @GetMapping
-    public String index(Model model) {
+    public String getAllUsers(Model model) {
         model.addAttribute("users", userService.getAllUsers());
-        return "index";
+        return "usersList";
     }
 
     @GetMapping("/{id}")
-    public String show(@PathVariable("id") long id, Model model) {
+    public String getUser(@PathVariable("id") long id, Model model) {
         model.addAttribute("user", userService.getUser(id));
         return "show";
     }
 
     @GetMapping("/new")
-    public String newUser(@ModelAttribute("user") User user) {
+    public String addUser(@ModelAttribute("user") User user) {
         return "new";
     }
 
     @PostMapping()
-    public String create(@ModelAttribute("user") @Valid User user,
+    public String createUser(@ModelAttribute("user") @Valid User user,
                          BindingResult bindingResult) {
         if (bindingResult.hasErrors()) {
             return "new";
@@ -48,13 +48,13 @@ public class UsersController {
     }
 
     @GetMapping("/{id}/edit")
-    public String edit(Model model, @PathVariable("id") long id) {
+    public String editUser(Model model, @PathVariable("id") long id) {
         model.addAttribute("user", userService.getUser(id));
         return "edit";
     }
 
     @PatchMapping("/{id}")
-    public String update(@ModelAttribute("user") @Valid User user,
+    public String updateUser(@ModelAttribute("user") @Valid User user,
                          BindingResult bindingResult, @PathVariable("id") long id) {
         if (bindingResult.hasErrors()) {
             return "edit";
